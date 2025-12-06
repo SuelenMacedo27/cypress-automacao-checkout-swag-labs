@@ -5,6 +5,9 @@ import home_page_checkout_commands from '../support/home_page_checkout_commands'
 import register_page_checkout_commands from '../support/register_page_checkout_commands'
 import product_page_commands from '../support/product_page_commands'
 
+const firstName = faker.person.firstName()
+const lastName = faker.person.lastName()
+
 
 describe('Checkout', () => {
 
@@ -15,12 +18,13 @@ describe('Checkout', () => {
     })
 
     it('Validar fluxo de compra com sucesso', () => {
+
         cy.addProductBackpack()
         cy.addProductBike()
         cy.shoppingCart()
         cy.btnCheckout()
-        cy.firstName('Suelen')
-        cy.lastName('Costa')
+        cy.firstName(firstName)
+        cy.lastName(lastName)
         cy.postalCode('00000')
         cy.btnContinue()
         //Automação de valor da compra ainda será feito
@@ -40,11 +44,12 @@ describe('Checkout', () => {
     })
 
     it('Validar fluxo com campo firstName vazio', () => {
+
         cy.addProductBackpack()
         cy.addProductBike()
         cy.shoppingCart()
         cy.btnCheckout()
-        cy.lastName('Costa')
+        cy.lastName(lastName)
         cy.postalCode('00000')
         cy.btnContinue()
         cy.messageError('Error: First Name is required')
@@ -55,23 +60,22 @@ describe('Checkout', () => {
         cy.addProductBike()
         cy.shoppingCart()
         cy.btnCheckout()
-        cy.firstName('Suelen')
+        cy.firstName(firstName)
         cy.postalCode('00000')
         cy.btnContinue()
         cy.messageError('Error: Last Name is required')
     })
 
-    it.only('Validar fluxo com campo postalCode vazio', () => {
+    it('Validar fluxo com campo postalCode vazio', () => {
         cy.addProductBackpack()
         cy.addProductBike()
         cy.shoppingCart()
         cy.btnCheckout()
-        cy.firstName('Suelen')
-        cy.lastName('Costa')
+        cy.firstName(firstName)
+        cy.lastName(lastName)
         cy.btnContinue()
         cy.messageError('Error: Postal Code is required')
-    })
-        
+    })     
 })
 
 

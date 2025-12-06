@@ -13,20 +13,33 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
+const elementsHome = {
+    logo: {
+        logo: '.login_logo'
+    },
+    fields: {
+        name: '#user-name',
+        password: '#password',
+    },
+    buttons:{
+        login: '#login-button'
+    }
+}
+
 Cypress.Commands.add('acessHomePage', () => {
     cy.visit('/')
-        .get('.login_logo')
+        .get(elementsHome.logo.logo)
 })
 
 Cypress.Commands.add('loginSucess', () => {
-    cy.get('#user-name')
+    cy.get(elementsHome.fields.name)
         .should('be.visible')
         .type('standard_user')
 
-    cy.get('#password')
+    cy.get(elementsHome.fields.password)
         .should('be.visible')
         .type('secret_sauce')
 
-    cy.get('#login-button')
+    cy.get(elementsHome.buttons.login)
         .click()
 })
