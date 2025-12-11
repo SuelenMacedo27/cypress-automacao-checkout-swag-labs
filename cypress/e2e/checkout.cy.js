@@ -66,7 +66,7 @@ describe('Checkout', () => {
         cy.messageError('Error: Last Name is required')
     })
 
-    it.only('Validar fluxo com campo postalCode vazio', () => {
+    it('Validar fluxo com campo postalCode vazio', () => {
         cy.addProductBackpack()
         cy.addProductBike()
         cy.shoppingCart()
@@ -75,7 +75,17 @@ describe('Checkout', () => {
         cy.lastName(lastName)
         cy.btnContinue()
         cy.messageError('Error: Postal Code is required')
-    })     
+    })  
+    
+    it('Validar fluxo de remoção de produtos', () => {
+        cy.addProductBackpack()
+        cy.addProductBike()
+        cy.shoppingCart()
+        cy.removeProductBackpack()
+        cy.removeProductBike()
+        cy.btnContinueShopping()
+        cy.checkTitle()
+    })
 })
 
 

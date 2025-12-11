@@ -1,5 +1,6 @@
 /// <reference types="cypress" />
 
+
 Cypress.Commands.add('validateProduct', (productName, price) => {
     cy.contains('.cart_item', productName)
       .within(() => {

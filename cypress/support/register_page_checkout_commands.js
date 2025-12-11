@@ -13,7 +13,8 @@ const elementsRegister = {
         btnContinue: '#continue',
         btnFinish: '#finish',
         btnBackHome: '#back-to-products',
-        btnCheckout: '#checkout'
+        btnCheckout: '#checkout',
+        btnContinueShopping: '#continue-shopping'
     },
     message: {
         SucessHeader: '.complete-header',
@@ -21,6 +22,9 @@ const elementsRegister = {
     },
     messageError: {
         messageError: '#checkout_info_container h3'
+    },
+    titlePage:{
+        pageProduct: '.title',
     }
 }
 
@@ -82,4 +86,14 @@ Cypress.Commands.add('btnBackHome', () => {
 Cypress.Commands.add('messageError', (message) => {
     cy.get(elementsRegister.messageError.messageError)
         .should('have.text', message)
+})
+
+Cypress.Commands.add('btnContinueShopping', () => {
+    cy.get(elementsRegister.buttons.btnContinueShopping)
+        .click()
+})
+
+Cypress.Commands.add('checkTitle', () => {
+    cy.get(elementsRegister.titlePage.pageProduct)
+        .should('have.text', 'Products')
 })
