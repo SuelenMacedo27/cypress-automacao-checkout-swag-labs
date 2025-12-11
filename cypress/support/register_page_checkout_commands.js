@@ -30,6 +30,12 @@ Cypress.Commands.add('shoppingCart', () => {
         .click()
 })
 
+Cypress.Commands.add('checkBtnCart', (done) => {
+    cy.get(elementsRegister.cart.cart)
+        .should('be.visible')
+        alert('Logado com sucesso')
+})
+
 Cypress.Commands.add('btnCheckout', () => {
     cy.get(elementsRegister.buttons.btnCheckout)
         .click()

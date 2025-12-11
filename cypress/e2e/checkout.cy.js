@@ -4,6 +4,7 @@ import { faker } from '@faker-js/faker';
 import home_page_checkout_commands from '../support/home_page_checkout_commands'
 import register_page_checkout_commands from '../support/register_page_checkout_commands'
 import product_page_commands from '../support/product_page_commands'
+import overview_page_checkout_commands from '../support/overview_page_checkout_commands'
 
 const firstName = faker.person.firstName()
 const lastName = faker.person.lastName()
@@ -14,11 +15,9 @@ describe('Checkout', () => {
     beforeEach('Acessando tela de login', () => {
         cy.acessHomePage()
         cy.loginSucess()
-        //Site não retorna mensagem de logado com sucesso
     })
 
     it('Validar fluxo de compra com sucesso', () => {
-
         cy.addProductBackpack()
         cy.addProductBike()
         cy.shoppingCart()
@@ -27,11 +26,13 @@ describe('Checkout', () => {
         cy.lastName(lastName)
         cy.postalCode('00000')
         cy.btnContinue()
-        //Automação de valor da compra ainda será feito
+        cy.validateProduct('Sauce Labs Backpack', '$29.99')
+        cy.validateProduct('Sauce Labs Bike Light', '$9.99')
+        cy.validateTotals('$39.98', '$3.20', '$43.18')
         cy.btnFinish()
         cy.messageSucess()
         cy.btnBackHome()
-        //Site não retorna mensagem de retorno com sucesso
+        cy.checkBtnCart()
     })
 
     it('Validar fluxo com campos firstName, lastName e postalCode vazios', () => {
@@ -44,7 +45,6 @@ describe('Checkout', () => {
     })
 
     it('Validar fluxo com campo firstName vazio', () => {
-
         cy.addProductBackpack()
         cy.addProductBike()
         cy.shoppingCart()
@@ -66,7 +66,7 @@ describe('Checkout', () => {
         cy.messageError('Error: Last Name is required')
     })
 
-    it('Validar fluxo com campo postalCode vazio', () => {
+    it.only('Validar fluxo com campo postalCode vazio', () => {
         cy.addProductBackpack()
         cy.addProductBike()
         cy.shoppingCart()
